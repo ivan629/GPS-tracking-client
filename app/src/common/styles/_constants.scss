@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+// Constants
+$font-family: 'Myriad Pro', Arial, sans-serif;
+$font-family-roboto: 'Roboto', sans-serif;
+
+// Used theme colors
+$red: rgb(221,44,33);
+$green: #07ca68;
+$green-light: #bbffaa;
+$yellow: #e3ef2b;
+$white: #fff;
+$dark-white: #fafafa;
+$gray-light: #ededed;
+$grey-darken: #757575;
+$grey-middle: #E0E0E0;
+$blue-grey: #ECEFF1;
+$dark-brown: #161616;
+$dark: #000000;
+$light-brown: #0b1603;
+$light-blue: #004b4b;
+$light-blue1: #0057f1;
+$black-transparent: rgba(0, 0, 0, 0.4);
+$dark-transparent: rgba(0, 0, 0, 0.6);
+$gray-light-transparent: rgba(250,250,250, 0.8);
+
+// Used theme colors
+$dark-blue: #203d53;
+$medium-blue: #064b75;
+$blue: #00a5df;
+$light-blue: #0090c2;
+$lighter-blue: #e5f6fb;
+$snow-light: #fafafa;
+$lightest-gray: #f2f2f2;
+$light-gray: #e2e2e2;
+$light-silver: #d7d7d7;
+$night-white: #d1dee6;
+$blue-grey: #81929c;
+$slate-grey: #5a6872;
+$night-blue-grey: #6c7781;
+$darkest-blue-grey: #3b4a57;
+$deep-blue: #081624;
+$navy: #022438;
+$smoke-white: #f8f9f9;
+$op-red: #e0182d;
+$op-orange: #ff8a00;
+$white: #fff;
+
+:export {
+  green: $green
+}

@@ -1,0 +1,47 @@
+{
+  "name": "app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android --port=8083",
+    "ios": "react-native run-ios",
+    "start": "react-native start --port=8083",
+    "test": "jest",
+    "lint": "eslint .",
+    "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=8083'"
+  },
+  "dependencies": {
+    "@react-native-community/geolocation": "^2.0.2",
+    "lodash": "^4.17.15",
+    "react": "16.9.0",
+    "react-native": "0.61.5",
+    "react-native-elements": "^1.2.7",
+    "react-native-flat-button": "^1.0.6",
+    "react-native-geolocation-service": "^4.0.0",
+    "react-native-location": "^2.5.0",
+    "react-native-maps": "git+https://git@github.com/react-native-community/react-native-maps.git",
+    "react-native-material-design": "^0.3.7",
+    "react-native-off-canvas-menu": "^0.1.32",
+    "react-native-vector-icons": "^6.6.0",
+    "react-redux": "latest",
+    "redux": "^4.0.5",
+    "redux-actions": "^2.6.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-saga": "^1.1.3",
+    "reselect": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/runtime": "^7.8.4",
+    "@react-native-community/eslint-config": "^0.0.7",
+    "babel-jest": "^25.1.0",
+    "eslint": "^6.8.0",
+    "jest": "^25.1.0",
+    "metro-react-native-babel-preset": "^0.58.0",
+    "react-devtools": "^4.4.0",
+    "react-test-renderer": "16.9.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
