@@ -1,12 +1,11 @@
-import { find } from 'lodash';
+import { isNil } from 'lodash';
 import {
-  LOCATION_DATA_SET,
+  USERS_DATA_SET,
   USER_OBSERVED_CHANGE,
-  LOCATION_MONITORING_TOGGLE
+  LOCATION_MONITORING_TOGGLE, UNIQUE_USER_ID_SET
 } from '../actions/locationDetectionActions';
 
 const DEFAULT_OTHER_USERS_LOCATIONS = [{
-  id: 2,
   latitude: 48.461255,
   longitude: 26.185371
 }];
@@ -14,10 +13,11 @@ const DEFAULT_OTHER_USERS_LOCATIONS = [{
 const DEFAULT_OBSERVED_USER_ID = 1;
 
 const initialState = {
-  observedUserId: DEFAULT_OBSERVED_USER_ID,
+  uniqueUserId: null,
+  observedUserIndex: DEFAULT_OBSERVED_USER_ID,
   currentUserLocation: null,
   isLocationMonitoring: false,
-  otherUsersLocations: DEFAULT_OTHER_USERS_LOCATIONS
+  usersLocations: DEFAULT_OTHER_USERS_LOCATIONS
 };
 
 export const locationMonitoringReducer = (state = initialState, action) => {
@@ -28,17 +28,26 @@ export const locationMonitoringReducer = (state = initialState, action) => {
         isLocationMonitoring: action.payload
       };
 
-    case LOCATION_DATA_SET:
+    case USERS_DATA_SET:
       return {
         ...state,
-        currentUserLocation: action.payload
+        usersLocations: [...DEFAULT_OTHER_USERS_LOCATIONS, ...action.payload]
+      };
+
+    case UNIQUE_USER_ID_SET:
+      return {
+        ...state,
+        uniqueUserId: action.payload
       };
 
     case USER_OBSERVED_CHANGE:
-      console.log('test', state.otherUsersLocations);
+      const observedUserIndex = !isNil(state.usersLocations[state.observedUserIndex + 1])
+      ? state.usersLocations.indexOf(state.usersLocations[state.observedUserIndex + 1])
+      : 0;
+
       return {
         ...state,
-        observedUserId: find(state.otherUsersLocations, { id: state.observedUserId + 1 }) || 1
+        observedUserIndex
       };
 
     default:

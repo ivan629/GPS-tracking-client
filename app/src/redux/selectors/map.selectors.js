@@ -1,4 +1,4 @@
-import { find, map, isNil } from 'lodash';
+import { map, isNil } from 'lodash';
 import { createSelector } from 'reselect';
 
 const DEFAULT_OBSERVED_USER_LOCATION_OPTIONS = {
@@ -11,36 +11,20 @@ const DEFAULT_CURRENT_USER_LOCATION = {
     longitude: 26.185371
 };
 
-const DEFAULT_LOCATION_COORDS = {
-    latitude: 37.461255,
-    longitude: -222.185371
-};
-
 export const getMarkers = createSelector(
     [
-        state => state.locationMonitoring.currentUserLocation,
-        state => state.locationMonitoring.otherUsersLocations
+        state => state.locationMonitoring.usersLocations
     ],
-    (currentUserLocation, otherUsersLocations) => {
-        let count = 0;
-        currentUserLocation = isNil(currentUserLocation) ? DEFAULT_LOCATION_COORDS : currentUserLocation;
-
-        return map([currentUserLocation, ...otherUsersLocations], (user) => {
-            count += 1;
-
-            return { id: count, ...user}
-        });
-    }
+    (otherUsersLocations) => otherUsersLocations
 );
 
 export const getObservedUserLocation = createSelector(
     [
-        state => state.locationMonitoring.observedUserId,
+        state => state.locationMonitoring.observedUserIndex,
         state => getMarkers(state)
     ],
-    (observedUserId, allUserLocations) => {
-        const observedUserData = find(allUserLocations, { id: observedUserId });
-        console.log('currentUserLocation', allUserLocations);
+    (observedUserIndex, allUserLocations) => {
+        const observedUserData = allUserLocations[observedUserIndex];
 
         const newObservedUserData = isNil(observedUserData) ? DEFAULT_CURRENT_USER_LOCATION : observedUserData;
 

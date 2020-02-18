@@ -7,43 +7,55 @@ import {
 } from 'react-native';
 import store from '../store';
 import Geolocation from 'react-native-geolocation-service';
-import { LOCATION_DATA_SET } from '../actions/locationDetectionActions';
+
+import { firebaseService } from './firebaseService'
 
 class LocationDetectionService {
     constructor() {
-        this.setNewPosition = (value) => store.dispatch({type: LOCATION_DATA_SET, payload: value});
         this.watchId = null;
         this.loading = false;
         this.location = {};
         this.updatesEnabled = false;
-    };
+    }
 
     async hasLocationPermission() {
-        if (Platform.OS === 'ios' ||
-            (Platform.OS === 'android' && Platform.Version < 23)) {
+        if (
+            Platform.OS === 'ios' ||
+            (Platform.OS === 'android' && Platform.Version < 23)
+        ) {
             return true;
         }
 
         const hasPermission = await PermissionsAndroid.check(
-            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         );
 
-        if (hasPermission) return true;
+        if (hasPermission) {
+            return true;
+        }
 
         const status = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         );
 
-        if (status === PermissionsAndroid.RESULTS.GRANTED) return true;
+        if (status === PermissionsAndroid.RESULTS.GRANTED) {
+            return true;
+        }
 
         if (status === PermissionsAndroid.RESULTS.DENIED) {
-            ToastAndroid.show('Location permission denied by user.', ToastAndroid.LONG);
+            ToastAndroid.show(
+                'Location permission denied by user.',
+                ToastAndroid.LONG,
+            );
         } else if (status === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
-            ToastAndroid.show('Location permission revoked by user.', ToastAndroid.LONG);
+            ToastAndroid.show(
+                'Location permission revoked by user.',
+                ToastAndroid.LONG,
+            );
         }
 
         return false;
-    };
+    }
 
     async getLocation() {
         const hasLocationPermission = await this.hasLocationPermission();
@@ -51,11 +63,11 @@ class LocationDetectionService {
         if (!hasLocationPermission) return;
 
         this.loading = true;
-        Geolocation.getCurrentPosition((position) => {
+        Geolocation.getCurrentPosition(
+            position => {
                 this.location = position;
-                this.setNewPosition(position.coords)
             },
-            (error) => {
+            error => {
                 this.location = error;
                 console.log(error);
             },
@@ -64,20 +76,21 @@ class LocationDetectionService {
                 timeout: 15000,
                 maximumAge: 10000,
                 distanceFilter: 50,
-                forceRequestLocation: true
+                forceRequestLocation: true,
             }
         );
         this.loading = false;
-    };
+    }
 
     async startLocationDetection() {
         const hasLocationPermission = this.hasLocationPermission();
 
-        if (!hasLocationPermission) return;
+        if (!hasLocationPermission) {
+            return;
+        }
         this.updatesEnabled = true;
 
         let count = 1;
-
 
         this.watchId = Geolocation.watchPosition((position) => {
                 this.location = position;
@@ -91,7 +104,7 @@ class LocationDetectionService {
                 const oldPosition = store.getState().locationMonitoring.currentUserLocation;
 
                 if (!isEqual(oldPosition, newPosition)) {
-                    this.setNewPosition(newPosition);
+                  firebaseService.handlePositionSet(newPosition);
                 }
             },
             (error) => {
@@ -111,6 +124,7 @@ class LocationDetectionService {
         if (this.watchId !== null) {
             Geolocation.clearWatch(this.watchId);
             this.updatesEnabled = false;
+            firebaseService.clearCurrentUserPositionHistory();
         }
     }
 }

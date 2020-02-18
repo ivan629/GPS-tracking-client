@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "686992468840",
+    "firebase_url": "https://gps-tracking-29fa5.firebaseio.com",
+    "project_id": "gps-tracking-29fa5",
+    "storage_bucket": "gps-tracking-29fa5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:686992468840:android:07c1deb7aecc60aa43c4dd",
+        "android_client_info": {
+          "package_name": "GPS.tracking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "686992468840-h2ea1l3li5qipfjqaqs7snn1i5uqpc43.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMM0DtA_SaYoFYV38lpUoJ6XDUA_2XbN4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "686992468840-h2ea1l3li5qipfjqaqs7snn1i5uqpc43.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

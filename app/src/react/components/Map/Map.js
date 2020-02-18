@@ -31,17 +31,14 @@ const styles = StyleSheet.create({
 });
 
 function Map({ observedUserLocation, markers }) {
-
-    console.log(observedUserLocation);
-
     return (
         <MapView
             style={styles.map}
             region={observedUserLocation}
             showsUserLocation={true}>
-              {map(markers, ({ latitude, longitude, id }) => (
-                  <Marker key={id}
-                      title={`${id}`}
+              {map(markers, ({ latitude, longitude }) => (
+                  <Marker key={Math.random()}
+                      title={`${Math.random()}`}
                       coordinate={{ latitude, longitude }} />)
               )}
     </MapView>

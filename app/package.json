@@ -7,11 +7,14 @@
     "ios": "react-native run-ios",
     "start": "react-native start --port=8083",
     "test": "jest",
-    "lint": "eslint .",
+    "lint": "eslint *.js **/*.js",
     "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=8083'"
   },
   "dependencies": {
     "@react-native-community/geolocation": "^2.0.2",
+    "eslint-config-airbnb": "^18.0.1",
+    "firebase": "^7.8.2",
+    "firebase-admin": "^8.9.2",
     "lodash": "^4.17.15",
     "react": "16.9.0",
     "react-native": "0.61.5",

@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import Button from 'react-native-flat-button'
 
-import Map from './Map/Map';
-
+import { firebaseService } from '../../redux/services/firebaseService';
 import { getMarkers, getObservedUserLocation } from '../../redux/selectors/map.selectors';
 import { toggleLocationMonitoring, switchObservedUser } from '../../redux/actions/locationDetectionActions'
+
+import Map from './Map/Map';
 
 
 function RootContainer(props) {
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     return (
         <View style={{flex: 1}}>
             <Map markers={markers} observedUserLocation={observedUserLocation} />
-                 <View style={{position: 'absolute', flex:2, flexDirection:"row", bottom: 0}}>
+                 <View style={{position: 'absolute', flex:2, flexDirection:'row', bottom: 0}}>
                     <Button
                         type='primary'
                         onPress={() => toggleLocationMonitor(!isLocationMonitoring)}
